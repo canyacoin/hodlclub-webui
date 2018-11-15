@@ -1,0 +1,37 @@
+image: registry.gitlab.com/canya-com/node-build-container:1.2
+
+variables:
+  APP_PATH: /builds/$CI_PROJECT_PATH
+
+before_script:
+  - cd $APP_PATH
+
+stages:
+  - build
+  - deploy
+
+dist:production:
+  stage: build
+  environment: production
+  only:
+    - master
+  artifacts:
+    name: "web-app-webui build"
+    paths:
+      - $APP_PATH/build
+  script:
+    - yarn
+    - echo -n "+ current working path:" && pwd
+    - yarn build
+
+deploy:production:
+  stage: deploy
+  environment: production
+  only:
+    - master
+  dependencies:
+    - dist:production
+  script:
+    - yarn -g firebase-tools@latest
+    - firebase use prod --token "$FIREBASE_CI_AUTH_TOKEN"
+    - firebase deploy --token "$FIREBASE_CI_AUTH_TOKEN" -P $FIREBASE_PROJECT_ID

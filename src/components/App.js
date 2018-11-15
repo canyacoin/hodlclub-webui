@@ -3,6 +3,7 @@ import './App.css'
 import Nav from './Nav'
 import Main from './Main'
 import Footer from './Footer'
+import getApiURL from '../config/api'
 
 class App extends React.Component {
   constructor(props) {
@@ -14,6 +15,11 @@ class App extends React.Component {
       hodlClub: [],
       hodlOG: []
     }
+
+    this.apiBasePath = getApiURL()
+
+    console.log('+ base path:', this.apiBasePath)
+
   }
   componentDidMount() {
     this.getHodlClubMembers()
@@ -25,15 +31,19 @@ class App extends React.Component {
    */
   async getHodlClubMembers(sort) {
     if (this.state.loading) return
-    fetch('http://localhost:8080/hodlers')
+    const url = `${this.apiBasePath}/hodlers`
+    fetch(url)
       .then(response => response.json())
+      .catch(this.setState({ hodlClub: [], loading: false }))
       .then(data => this.setState({ hodlClub: data, loading: false }))
   }
 
   async getHodlOGMembers(sort) {
     if (this.state.loadingOG) return
-    fetch('http://localhost:8080/hodlers?tier=OG')
+    const url = `${this.apiBasePath}/hodlers?tier=OG`
+    fetch(url)
       .then(response => response.json())
+      .catch(this.setState({ hodlOG: [], loading: false }))
       .then(data => this.setState({ hodlOG: data, loadingOG: false }))
   }
 
