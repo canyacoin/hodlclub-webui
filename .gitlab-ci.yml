@@ -33,5 +33,5 @@ deploy:production:
     - dist:production
   script:
     - yarn -g firebase-tools@latest
-    - firebase use prod --token "$FIREBASE_CI_AUTH_TOKEN"
+    - firebase use hodl-club --token "$FIREBASE_CI_AUTH_TOKEN"
     - firebase deploy --token "$FIREBASE_CI_AUTH_TOKEN" -P $FIREBASE_PROJECT_ID
