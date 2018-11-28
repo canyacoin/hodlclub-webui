@@ -6,7 +6,7 @@ import NumberFormat from 'react-number-format'
 
 class ListItem extends React.Component {
   getEtherscanUrl(address) {
-    return `https://etherscan.io/address/${address}`
+    return `https://etherscan.io/token/0x1d462414fe14cf489c7a21cac78509f4bf8cd7c0?a=${address}`
   }
 
   render() {
