@@ -10,16 +10,19 @@ class App extends React.Component {
       super(props)
       this.getHodlClubMembers = this.getHodlClubMembers.bind(this)
       this.getHodlOGMembers = this.getHodlOGMembers.bind(this)
+      this.getHodlTotal = this.getHodlTotal.bind(this)
       this.state = {
         showMe: true,
         hodlClub: [],
-        hodlOG: []
+        hodlOG: [],
+        hodlTotal: 0
       }
       this.apiBasePath = getApiURL()
     }
     componentDidMount() {
       this.getHodlClubMembers()
       this.getHodlOGMembers()
+      this.getHodlTotal()
     }
 
     /**
@@ -55,6 +58,21 @@ class App extends React.Component {
         }))
     }
 
+    async getHodlTotal(sort) {
+      if (this.state.loadingTotals) return
+      const url = `${this.apiBasePath}/hodltotal`
+      fetch(url)
+        .then(response => response.json())
+        .catch(this.setState({
+          hodlTotal: 0,
+          loading: false
+        }))
+        .then(data => this.setState({
+          hodlTotal: data,
+          loadingTotals: false
+        }))
+    }
+
     render() {
       return ( < div className = "App" >
         <
@@ -68,10 +86,12 @@ class App extends React.Component {
         hodlOG = {
           this.state.hodlOG
         }
+        hodlTotal = {
+          this.state.hodlTotal
+        }    
         /> <
         Footer / >
-        <
-        /div>)
+        </div>)
       }
     }
 
