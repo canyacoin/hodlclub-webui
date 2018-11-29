@@ -21,7 +21,11 @@ class Main extends React.Component {
               OG={true}
             />
           )} />
-          <Route exactly path='/' component={Home} />
+          <Route path='/' render={(props) => (
+            <Home
+              hodlTotal={this.props.hodlTotal}
+            />
+          )} />
         </Switch>
       </div>)
   }

@@ -1,8 +1,10 @@
 import React from 'react'
+import NumberFormat from 'react-number-format'
 import './App.css'
 
 class Home extends React.Component {
   render() {
+    console.log("total: ",this.props.hodlTotal)
     return (<div className="Home">
       <div className="homeFlex">
         <img className="image" alt="Home" width="40%" src={require('./assets/CAN_home_01.png')} />
@@ -11,7 +13,10 @@ class Home extends React.Component {
           <p>
             The aim of the CanYa HODL Club is to get as many <b>long term believers of the CanYaCoin Token together in an exclusive group while also rewarding them </b>
             for their loyalty with air-dropped tokens from CanYa and our partners.
-          </p>
+          </p><br></br>
+          <h2>Total CanYaCoin Hodl'd: &nbsp;
+            <NumberFormat value={this.props.hodlTotal} displayType={'text'} thousandSeparator={true} />
+            </h2>
         </div>
       </div>
       <div className="homeFlex">

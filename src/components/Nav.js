@@ -22,6 +22,7 @@ class Nav extends React.Component {
   }
 
   desktopNav() {
+    console.log("nav:",this.state)
     return (
       <div className="Nav">
         <div className="logo">
